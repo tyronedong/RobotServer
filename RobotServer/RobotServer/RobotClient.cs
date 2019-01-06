@@ -19,6 +19,7 @@ namespace RobotServer
         ESServo,
         ESSelectJob,
         ESStartJob,
+        ESCancel,
         ESHold,
         ESReset,
         ESGetVarDataMI,
@@ -30,6 +31,9 @@ namespace RobotServer
     {
         public static bool IsRobotConnected = false;
         public static bool IsForceKill = false;
+
+        public static int _res = -1;                //函数执行结果
+        public static string _ErrorMessages = "";   //错误信息
 
         public const string bool_true_str = "True";
         public const string bool_false_str = "False";
@@ -188,9 +192,9 @@ namespace RobotServer
         /// <returns></returns>
         public static bool GetMotoCom_ESSaveFile(string sSavePath, string sFileName)
         {
-            string cmd = string.Format("{0} {1} {2}", 
-                RobotControlCommand.ESSaveFile.ToString(), 
-                sSavePath, 
+            string cmd = string.Format("{0} {1} {2}",
+                RobotControlCommand.ESSaveFile.ToString(),
+                sSavePath,
                 sFileName);
 
             if (Send(cmd) < 0)
@@ -333,6 +337,27 @@ namespace RobotServer
             return true;
         }
 
+        public static bool SetMotoCom_ESCancel()
+        {
+            string cmd = string.Format("{0}",
+             RobotControlCommand.ESCancel.ToString());
+
+            if (Send(cmd) < 0)
+            {
+                IsRobotConnected = false;
+                return false;
+            }
+
+            string res = Recv();
+            if (res == null || res == bool_false_str)
+            {
+                IsRobotConnected = false;
+                return false;
+            }
+
+            return true;
+        }
+
         public static bool SetMotoCom_ESHold(int onOff)
         {
             string cmd = string.Format("{0} {1}",
@@ -381,6 +406,8 @@ namespace RobotServer
         /// </summary>
         public static short GetMotoCom_ESGetVarDataMI(int varNo)
         {
+            RobotClient._res = 0;
+
             string cmd = string.Format("{0} {1}",
              RobotControlCommand.ESGetVarDataMI.ToString(),
              varNo);
@@ -388,6 +415,7 @@ namespace RobotServer
             if (Send(cmd) < 0)
             {
                 IsRobotConnected = false;
+                RobotClient._res = -1;
                 return ERROR;
             }
 
@@ -395,6 +423,7 @@ namespace RobotServer
             if (res == null || res == bool_false_str)
             {
                 IsRobotConnected = false;
+                RobotClient._res = -1;
                 return ERROR;
             }
 
@@ -410,6 +439,32 @@ namespace RobotServer
             RobotControlCommand.ESSetVarDataMI.ToString(),
             varNo,
             val);
+
+            if (Send(cmd) < 0)
+            {
+                IsRobotConnected = false;
+                return false;
+            }
+
+            string res = Recv();
+            if (res == null || res == bool_false_str)
+            {
+                IsRobotConnected = false;
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 设置机器人的多个I型数值
+        /// </summary>
+        public static bool SetMotoCom_ESSetVarDataMI(int varNo, short[] val)
+        {
+            string cmd = string.Format("{0} {1} {2}",
+            RobotControlCommand.ESSetVarDataMI_Multi.ToString(),
+            varNo,
+            string.Join("_", val));
 
             if (Send(cmd) < 0)
             {

@@ -65,6 +65,9 @@ namespace RobotServer
                         case RobotControlCommand.ESStartJob:
                             res_b = MotoComHandler.SetMotoCom_ESStartJob();
                             result_str = res_b.ToString(); break;
+                        case RobotControlCommand.ESCancel:
+                            res_b = MotoComHandler.SetMotoCom_ESCancel();
+                            result_str = res_b.ToString(); break;
                         case RobotControlCommand.ESHold:
                             res_b = MotoComHandler.SetMotoCom_ESHold(Int32.Parse(cmd_parts[1]));
                             result_str = res_b.ToString(); break;
