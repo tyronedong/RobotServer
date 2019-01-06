@@ -9,6 +9,23 @@ using System.Diagnostics;
 
 namespace RobotServer
 {
+    public enum RobotControlCommand     // enum 类型定义在 class 外面 
+    {
+        Configure_WriteAddrOffset,
+        Configure_ReadAddrOffset,
+        ESSaveFile,
+        ESLoadFile,
+        ESDeleteJob,
+        ESServo,
+        ESSelectJob,
+        ESStartJob,
+        ESHold,
+        ESReset,
+        ESGetVarDataMI,
+        ESSetVarDataMI,
+        ESSetVarDataMI_Multi,
+    }
+
     public class RobotClient
     {
         public static bool IsRobotConnected = false;
