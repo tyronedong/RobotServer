@@ -184,6 +184,20 @@ namespace RobotServer
         }
         #endregion
 
+        public static bool RobotConnect()
+        {
+            if (!Reconnect())
+                return false;
+
+            GetMotoCom_ESGetVarDataMI(1);
+
+            IsRobotConnected = RobotClient._res == 0;
+
+            //AlsonScanFast(0); //第一次启动时扫描
+
+            return IsRobotConnected;
+        }
+
         /// <summary>
         /// 把机器人上指定的文件保存到本地指定的地址
         /// </summary>
