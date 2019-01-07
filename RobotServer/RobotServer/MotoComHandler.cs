@@ -11,7 +11,7 @@ namespace YASKAWA
     public class MotoComHandler
     {
         public static int _writeAddrOffset;
-        public static int _readAddrOffset;
+        public static int _readAddrOffset = 1;
 
         #region 机器人操作变量区
         public static Encoding _ECode = Encoding.Default;   //编码
