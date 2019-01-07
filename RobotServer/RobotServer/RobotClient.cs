@@ -309,8 +309,9 @@ namespace RobotServer
 
         public static bool SetMotoCom_ESSelectJob(string jobNameStr, int jobType = 1, int lineNo = 1)
         {
-            string cmd = string.Format("{0} {1} {2}",
+            string cmd = string.Format("{0} {1} {2} {3}",
              RobotControlCommand.ESSelectJob.ToString(),
+             jobNameStr,
              jobType,
              lineNo);
 
