@@ -48,37 +48,37 @@ namespace RobotServer
                             MotoComHandler.SetConfigure_ReadAddrOffset(Int32.Parse(cmd_parts[1]));
                             result_str = "True"; break;
                         case RobotControlCommand.ESSaveFile:
-                            res_b = MotoComHandler.GetMotoCom_ESSaveFile(cmd_parts[1], cmd_parts[2]);
+                            res_b = MotoComHandler.GetMotoCom_ESSaveFile(cmd_parts[1], cmd_parts[2], cmd_parts[3]);
                             result_str = res_b.ToString(); break;
                         case RobotControlCommand.ESLoadFile:
-                            res_b = MotoComHandler.SetMotoCom_ESLoadFile(cmd_parts[1]);
+                            res_b = MotoComHandler.SetMotoCom_ESLoadFile(cmd_parts[1], cmd_parts[2]);
                             result_str = res_b.ToString(); break;
                         case RobotControlCommand.ESDeleteJob:
-                            res_b = MotoComHandler.SetMotoCom_ESDeleteJob(cmd_parts[1]);
+                            res_b = MotoComHandler.SetMotoCom_ESDeleteJob(cmd_parts[1], cmd_parts[2]);
                             result_str = res_b.ToString(); break;
                         case RobotControlCommand.ESServo:
-                            res_b = MotoComHandler.SetMotoCom_ESServo(Int32.Parse(cmd_parts[1]));
+                            res_b = MotoComHandler.SetMotoCom_ESServo(Int32.Parse(cmd_parts[1]), cmd_parts[2]);
                             result_str = res_b.ToString(); break;
                         case RobotControlCommand.ESSelectJob:
-                            res_b = MotoComHandler.SetMotoCom_ESSelectJob(cmd_parts[1]);
+                            res_b = MotoComHandler.SetMotoCom_ESSelectJob(cmd_parts[1], ipaddress: cmd_parts[4]);
                             result_str = res_b.ToString(); break;
                         case RobotControlCommand.ESStartJob:
-                            res_b = MotoComHandler.SetMotoCom_ESStartJob();
+                            res_b = MotoComHandler.SetMotoCom_ESStartJob(cmd_parts[0]);
                             result_str = res_b.ToString(); break;
                         case RobotControlCommand.ESCancel:
                             res_b = MotoComHandler.SetMotoCom_ESCancel();
                             result_str = res_b.ToString(); break;
                         case RobotControlCommand.ESHold:
-                            res_b = MotoComHandler.SetMotoCom_ESHold(Int32.Parse(cmd_parts[1]));
+                            res_b = MotoComHandler.SetMotoCom_ESHold(Int32.Parse(cmd_parts[1]), cmd_parts[2]);
                             result_str = res_b.ToString(); break;
                         case RobotControlCommand.ESReset:
                             res_b = MotoComHandler.SetMotoCom_ESReset();
                             result_str = res_b.ToString(); break;
                         case RobotControlCommand.ESGetVarDataMI:
-                            res_s = MotoComHandler.GetMotoCom_ESGetVarDataMI(Int32.Parse(cmd_parts[1]));
+                            res_s = MotoComHandler.GetMotoCom_ESGetVarDataMI(Int32.Parse(cmd_parts[1]), cmd_parts[2]);
                             result_str = res_s.ToString(); break;
                         case RobotControlCommand.ESSetVarDataMI:
-                            res_b = MotoComHandler.SetMotoCom_ESSetVarDataMI(Int32.Parse(cmd_parts[1]), short.Parse(cmd_parts[2]));
+                            res_b = MotoComHandler.SetMotoCom_ESSetVarDataMI(Int32.Parse(cmd_parts[1]), short.Parse(cmd_parts[2]), cmd_parts[3]);
                             result_str = res_b.ToString(); break;
                         case RobotControlCommand.ESSetVarDataMI_Multi:
                             List<short> valArray = new List<short>();

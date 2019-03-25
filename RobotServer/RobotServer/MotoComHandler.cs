@@ -10,8 +10,10 @@ namespace YASKAWA
 {
     public class MotoComHandler
     {
+        const string default_ipaddress = "192.168.255.1";
+
         public static int _writeAddrOffset;
-        public static int _readAddrOffset = 1;
+        public static int _readAddrOffset;
 
         #region 机器人操作变量区
         public static Encoding _ECode = Encoding.Default;   //编码
@@ -69,7 +71,7 @@ namespace YASKAWA
         /// 基础操作，不更新错误信息
         /// </summary>
         /// <returns></returns>
-        public static bool SetMotoCom_ESOpen(string ipaddress = "192.168.255.1", int controllerType = 3)
+        public static bool SetMotoCom_ESOpen(string ipaddress = default_ipaddress, int controllerType = 3)
         {
             MotoComHandler.res = -1;
 
@@ -150,9 +152,9 @@ namespace YASKAWA
         /// 
         /// </summary>
         /// <returns></returns>
-        public static List<String> GetMotoCom_ESFileList()
+        public static List<String> GetMotoCom_ESFileList(string ipaddress = default_ipaddress)
         {
-            if (!MotoComHandler.SetMotoCom_ESOpen())
+            if (!MotoComHandler.SetMotoCom_ESOpen(ipaddress))
             {
                 //错误处理
                 MotoComHandler._ErrorMessages = MotoComHandler.ESOPENERROR;
@@ -214,9 +216,9 @@ namespace YASKAWA
         /// <param name="sSavePath">指定保存到本地的路径</param>
         /// <param name="sFileName">指定机器人上的文件名</param>
         /// <returns></returns>
-        public static bool GetMotoCom_ESSaveFile(string sSavePath, string sFileName)
+        public static bool GetMotoCom_ESSaveFile(string sSavePath, string sFileName, string ipaddress = default_ipaddress)
         {
-            if (!MotoComHandler.SetMotoCom_ESOpen())
+            if (!MotoComHandler.SetMotoCom_ESOpen(ipaddress))
             {
                 //错误处理
                 MotoComHandler._ErrorMessages = MotoComHandler.ESOPENERROR;
@@ -258,9 +260,9 @@ namespace YASKAWA
         /// </summary>
         /// <param name="sLoadPath"></param>
         /// <returns></returns>
-        public static bool SetMotoCom_ESLoadFile(string sLoadPath)
+        public static bool SetMotoCom_ESLoadFile(string sLoadPath, string ipaddress = default_ipaddress)
         {
-            if (!MotoComHandler.SetMotoCom_ESOpen())
+            if (!MotoComHandler.SetMotoCom_ESOpen(ipaddress))
             {
                 //错误处理
                 MotoComHandler._ErrorMessages = MotoComHandler.ESOPENERROR;
@@ -299,9 +301,9 @@ namespace YASKAWA
         /// ESDeleteJob
         /// </summary>
         /// <returns></returns>
-        public static bool SetMotoCom_ESDeleteJob(string jobName)
+        public static bool SetMotoCom_ESDeleteJob(string jobName, string ipaddress = default_ipaddress)
         {
-            if (!MotoComHandler.SetMotoCom_ESOpen())
+            if (!MotoComHandler.SetMotoCom_ESOpen(ipaddress))
             {
                 //错误处理
                 MotoComHandler._ErrorMessages = MotoComHandler.ESOPENERROR;
@@ -340,9 +342,9 @@ namespace YASKAWA
         /// </summary>
         /// <param name="onOff">1代表on,2代表off</param>
         /// <returns></returns>
-        public static bool SetMotoCom_ESServo(int onOff)
+        public static bool SetMotoCom_ESServo(int onOff, string ipaddress = default_ipaddress)
         {
-            if (!MotoComHandler.SetMotoCom_ESOpen())
+            if (!MotoComHandler.SetMotoCom_ESOpen(ipaddress))
             {
                 //错误处理
                 MotoComHandler._ErrorMessages = MotoComHandler.ESOPENERROR;
@@ -371,9 +373,9 @@ namespace YASKAWA
             return true;
         }
 
-        public static bool SetMotoCom_ESSelectJob(string jobNameStr, int jobType = 1, int lineNo = 1)
+        public static bool SetMotoCom_ESSelectJob(string jobNameStr, int jobType = 1, int lineNo = 1, string ipaddress = default_ipaddress)
         {
-            if (!MotoComHandler.SetMotoCom_ESOpen())
+            if (!MotoComHandler.SetMotoCom_ESOpen(ipaddress))
             {
                 //错误处理
                 MotoComHandler._ErrorMessages = MotoComHandler.ESOPENERROR;
@@ -406,9 +408,9 @@ namespace YASKAWA
             return true;
         }
 
-        public static bool SetMotoCom_ESStartJob()
+        public static bool SetMotoCom_ESStartJob(string ipaddress = default_ipaddress)
         {
-            if (!MotoComHandler.SetMotoCom_ESOpen())
+            if (!MotoComHandler.SetMotoCom_ESOpen(ipaddress))
             {
                 //错误处理
                 MotoComHandler._ErrorMessages = MotoComHandler.ESOPENERROR;
@@ -438,9 +440,9 @@ namespace YASKAWA
             return true;
         }
 
-        public static bool SetMotoCom_ESCancel()
+        public static bool SetMotoCom_ESCancel(string ipaddress = default_ipaddress)
         {
-            if (!MotoComHandler.SetMotoCom_ESOpen())
+            if (!MotoComHandler.SetMotoCom_ESOpen(ipaddress))
             {
                 //错误处理
                 MotoComHandler._ErrorMessages = MotoComHandler.ESOPENERROR;
@@ -470,9 +472,9 @@ namespace YASKAWA
             return true;
         }
 
-        public static bool SetMotoCom_ESHold(int onOff)
+        public static bool SetMotoCom_ESHold(int onOff, string ipaddress = default_ipaddress)
         {
-            if (!MotoComHandler.SetMotoCom_ESOpen())
+            if (!MotoComHandler.SetMotoCom_ESOpen(ipaddress))
             {
                 //错误处理
                 MotoComHandler._ErrorMessages = MotoComHandler.ESOPENERROR;
@@ -502,9 +504,9 @@ namespace YASKAWA
             return true;
         }
 
-        public static bool SetMotoCom_ESReset()
+        public static bool SetMotoCom_ESReset(string ipaddress = default_ipaddress)
         {
-            if (!MotoComHandler.SetMotoCom_ESOpen())
+            if (!MotoComHandler.SetMotoCom_ESOpen(ipaddress))
             {
                 //错误处理
                 MotoComHandler._ErrorMessages = MotoComHandler.ESOPENERROR;
@@ -537,11 +539,11 @@ namespace YASKAWA
         /// <summary>
         /// 获取机器人的一个I型数值
         /// </summary>
-        public static short GetMotoCom_ESGetVarDataMI(int varNo)
+        public static short GetMotoCom_ESGetVarDataMI(int varNo, string ipaddress = default_ipaddress)
         {
             varNo += _readAddrOffset;
 
-            if (!MotoComHandler.SetMotoCom_ESOpen())
+            if (!MotoComHandler.SetMotoCom_ESOpen(ipaddress))
             {
                 //错误处理
                 MotoComHandler._ErrorMessages = MotoComHandler.ESOPENERROR;
@@ -578,11 +580,11 @@ namespace YASKAWA
         /// <summary>
         /// 设置机器人的一个I型数值
         /// </summary>
-        public static bool SetMotoCom_ESSetVarDataMI(int varNo, short val)
+        public static bool SetMotoCom_ESSetVarDataMI(int varNo, short val, string ipaddress = default_ipaddress)
         {
             varNo += _writeAddrOffset;
 
-            if (!MotoComHandler.SetMotoCom_ESOpen())
+            if (!MotoComHandler.SetMotoCom_ESOpen(ipaddress))
             {
                 //错误处理
                 MotoComHandler._ErrorMessages = MotoComHandler.ESOPENERROR;
@@ -622,11 +624,11 @@ namespace YASKAWA
         /// <summary>
         /// 设置机器人的多个I型数值
         /// </summary>
-        public static bool SetMotoCom_ESSetVarDataMI_Multi(int varNo, List<short> val)
+        public static bool SetMotoCom_ESSetVarDataMI_Multi(int varNo, List<short> val, string ipaddress = default_ipaddress)
         {
             varNo += _writeAddrOffset;
 
-            if (!MotoComHandler.SetMotoCom_ESOpen())
+            if (!MotoComHandler.SetMotoCom_ESOpen(ipaddress))
             {
                 //错误处理
                 MotoComHandler._ErrorMessages = MotoComHandler.ESOPENERROR;
@@ -667,11 +669,11 @@ namespace YASKAWA
         /// <summary>
         /// 设置机器人的多个I型数值
         /// </summary>
-        public static bool SetMotoCom_ESSetVarDataMI(int startVarNo, short[] valArray)
+        public static bool SetMotoCom_ESSetVarDataMI(int startVarNo, short[] valArray, string ipaddress = default_ipaddress)
         {
             startVarNo += _writeAddrOffset;
 
-            if (!MotoComHandler.SetMotoCom_ESOpen())
+            if (!MotoComHandler.SetMotoCom_ESOpen(ipaddress))
             {
                 //错误处理
                 MotoComHandler._ErrorMessages = MotoComHandler.ESOPENERROR;
@@ -713,9 +715,9 @@ namespace YASKAWA
         /// <summary>
         /// 获取机器人的一个D型数值
         /// </summary>
-        public static int GetMotoCom_ESGetVarDataMD(int varNo)
+        public static int GetMotoCom_ESGetVarDataMD(int varNo, string ipaddress = default_ipaddress)
         {
-            if (!MotoComHandler.SetMotoCom_ESOpen())
+            if (!MotoComHandler.SetMotoCom_ESOpen(ipaddress))
             {
                 //错误处理
                 MotoComHandler._ErrorMessages = MotoComHandler.ESOPENERROR;
@@ -752,9 +754,9 @@ namespace YASKAWA
         /// <summary>
         /// 设置机器人的一个D型数值
         /// </summary>
-        public static bool SetMotoCom_ESSetVarDataMD(int varNo, int val)
+        public static bool SetMotoCom_ESSetVarDataMD(int varNo, int val, string ipaddress = default_ipaddress)
         {
-            if (!MotoComHandler.SetMotoCom_ESOpen())
+            if (!MotoComHandler.SetMotoCom_ESOpen(ipaddress))
             {
                 //错误处理
                 MotoComHandler._ErrorMessages = MotoComHandler.ESOPENERROR;
